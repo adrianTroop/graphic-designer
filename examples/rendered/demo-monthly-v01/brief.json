@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "brand": "kai-tak",
+  "language": "TC-EN",
+  "content_status": "demo",
+  "event": {
+    "name": "MONTHLY PROGRAMME · DESIGN SAMPLE",
+    "date_display": "月份及活動資料待確認",
+    "venue": "Programme details to be confirmed"
+  },
+  "notice": "設計示例，並非活動公告。Design sample only; not an event announcement.",
+  "fact_sources": [],
+  "job_id": "demo-monthly-v01",
+  "family": "monthly-cover",
+  "headline": {
+    "primary": "每月精彩活動",
+    "secondary": "Happenings at Kai Tak"
+  }
+}

@@ -1,0 +1,13 @@
+node_modules/
+jobs/
+work/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+*.tmp
+.hermes/plans/
+.hermes/sessions/
+__pycache__/
+.venv/

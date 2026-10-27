@@ -1,0 +1,78 @@
+{
+  "mechanical_status": "passed",
+  "dimensions": [
+    1080,
+    1350
+  ],
+  "text_boxes": [
+    {
+      "id": "event-header",
+      "box": [
+        120,
+        240,
+        840,
+        70
+      ],
+      "font_size": 38,
+      "line_count": 1,
+      "status": "fits"
+    },
+    {
+      "id": "primary-headline",
+      "box": [
+        155,
+        560,
+        770,
+        190
+      ],
+      "font_size": 78,
+      "line_count": 1,
+      "status": "fits"
+    },
+    {
+      "id": "english-support",
+      "box": [
+        155,
+        790,
+        770,
+        135
+      ],
+      "font_size": 44,
+      "line_count": 1,
+      "status": "fits"
+    },
+    {
+      "id": "event-facts",
+      "box": [
+        155,
+        994,
+        770,
+        126
+      ],
+      "font_size": 32,
+      "line_count": 2,
+      "status": "fits"
+    },
+    {
+      "id": "notice",
+      "box": [
+        112,
+        1235,
+        856,
+        78
+      ],
+      "font_size": 22,
+      "line_count": 1,
+      "status": "fits"
+    }
+  ],
+  "asset_count": 3,
+  "manual_checks_pending": [
+    "Visual comparison with reference",
+    "Font and CJK glyph appearance on this system",
+    "Readability at placement size",
+    "Event facts and translation",
+    "Asset approval and any required credits"
+  ],
+  "review_state": "pending"
+}
