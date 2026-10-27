@@ -21,7 +21,7 @@ Separate three layers of responsibility:
 
 Every production asset must have an ID, source or reconstruction reference, provenance status and useful size information. Every automatic template must cite at least one evidence record or an explicit approved design decision. Keep exact source files unchanged; maintain adaptations as separate files.
 
-Source artwork retained for analysis is not automatically licensed for redistribution or new campaigns. This repository includes client-specific reference media; keep repository visibility private by default when creating a remote unless the user chooses otherwise after considering those contents. No open-source licence is applied to third-party brand material.
+Source artwork retained for analysis is not automatically licensed for new campaigns. This repository is shared publicly at the owner's request and includes brand-specific reference media. Preserve the source, ownership and adaptation notices when reusing or extending a package. No open-source licence is applied to third-party brand material.
 
 ## Versioning
 

@@ -20,4 +20,4 @@ These are labelled demonstrations using placeholder event information. AI visual
 
 A live Hermes agent/model conversation was not executed. The local launcher required write access to its install-state lock, which was unavailable in this execution environment. Integration instructions were checked against the installed Hermes source and official documentation. No existing profile, credentials, gateway or global SOUL file was modified.
 
-No remote repository, live campaign, schedule or published social post was created. The local Git repository and source package are ready for review and subsequent activation.
+No live campaign, schedule or social post was created. Repository publication is separate from activating a Hermes profile or publishing campaign artwork; those integration limits remain unchanged.

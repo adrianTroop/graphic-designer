@@ -1,8 +1,21 @@
-# Hermes Graphic Designer
+# Graphic Designer
 
 A reusable designer-bot project for **Nous Research Hermes Agent**, with Kai Tak Sports Park as the first evidence-backed brand package.
 
 The project turns a structured brief into a **review draft**: PNG artwork, editable SVG, caption and alt-text drafts, provenance manifest and a QA report. It also carries the complete audited brand guide, publication references and transparent assets so Hermes can make informed design choices.
+
+![Three generated Kai Tak design examples](examples/rendered/preview.png)
+
+## Download
+
+[Download the source ZIP](https://github.com/adrianTroop/graphic-designer/archive/refs/heads/main.zip), or clone the repository:
+
+```bash
+git clone https://github.com/adrianTroop/graphic-designer.git
+cd graphic-designer
+```
+
+The download includes the brand guide, transparent assets, reference library and example outputs. The archive does not include installed dependencies; follow the quick start below.
 
 ## What works now
 
@@ -21,7 +34,7 @@ This is a working v0.1 foundation, not full autonomous social management. Inner 
 Requirements: Node.js 22+ and a suitable installed font. The Kai Tak working configuration uses **Arial Unicode MS**, a substitute rather than the recovered official typeface. On another machine, install a CJK-capable font and set `DESIGNER_FONT` to its family name; inspect the rendered glyphs because font substitution changes spacing.
 
 ```bash
-npm install
+npm ci
 npm test
 node src/cli.cjs validate examples/operational.json
 npm run demo
@@ -73,7 +86,7 @@ Read [the Kai Tak design guide](brands/kai-tak/design.md), [asset catalogue](bra
 
 All generated work remains visibly marked DESIGN SAMPLE or DRAFT / REVIEW PENDING. Mechanical checks cannot verify translation, facts, rights, legibility or brand approval. The white primary logo is a native 302px raster; this project keeps it below that width rather than manufacturing a vector master. Original, adapted and redrawn assets are labelled individually.
 
-The repository contains third-party brand assets and reference images. No open-source licence is assigned to those materials. A remote repository has not been created or published by this handoff; visibility and destination can be chosen separately.
+The repository contains third-party brand assets and reference images. Their original ownership and usage restrictions remain in place; public download does not make those materials public domain. No open-source licence is assigned to them. Asset sources and adaptation status are recorded in the brand package's manifest.
 
 ## Hermes compatibility sources
 
