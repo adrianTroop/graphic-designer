@@ -1,0 +1,19 @@
+{
+  "schema_version": 2,
+  "job_id": "new-brand-sample-v01",
+  "brand": "new-brand",
+  "template": "announcement",
+  "locales": [
+    "en"
+  ],
+  "content_status": "demo",
+  "content": {
+    "eyebrow": "YOUR BRAND / STARTER DRAFT",
+    "headline": "Your brand.\nYour design.",
+    "body": "Turn a clear brief into an editable visual. Bring your own identity, assets and voice.",
+    "details": "Provisional design: replace with your approved brand rules.",
+    "cta": "Make something that fits."
+  },
+  "assets": {},
+  "fact_sources": []
+}

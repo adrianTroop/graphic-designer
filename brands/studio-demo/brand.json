@@ -1,0 +1,457 @@
+{
+  "schema_version": 2,
+  "id": "studio-demo",
+  "name": "Studio Demo",
+  "status": "Fictional demonstration; no real client identity is included.",
+  "design_guide": "design.md",
+  "asset_manifest": "assets/asset-manifest.json",
+  "typography": {
+    "family": "sans-serif",
+    "status": "Generic system sans-serif for demonstration. Supply a licensed brand font for production."
+  },
+  "tokens": {
+    "ink": "#202822",
+    "paper": "#F4F4EE",
+    "accent": "#C5E86C"
+  },
+  "templates": {
+    "announcement": {
+      "description": "Portrait announcement with independent copy fields.",
+      "canvas": [
+        1080,
+        1350
+      ],
+      "background": "$paper",
+      "evidence": [
+        "design.md#proposed-starter-layouts"
+      ],
+      "fields": {
+        "eyebrow": {
+          "required": false,
+          "max_length": 100
+        },
+        "headline": {
+          "required": true,
+          "max_length": 140
+        },
+        "body": {
+          "required": false,
+          "max_length": 360
+        },
+        "details": {
+          "required": false,
+          "max_length": 180
+        },
+        "cta": {
+          "required": false,
+          "max_length": 90
+        }
+      },
+      "layers": [
+        {
+          "id": "accent-rule",
+          "type": "rect",
+          "box": [
+            80,
+            178,
+            80,
+            8
+          ],
+          "fill": "$accent",
+          "radius": 0
+        },
+        {
+          "id": "eyebrow",
+          "type": "text",
+          "field": "eyebrow",
+          "box": [
+            80,
+            68,
+            630,
+            65
+          ],
+          "font_size": 28,
+          "min_font_size": 22,
+          "fill": "$ink",
+          "weight": 400
+        },
+        {
+          "id": "headline",
+          "type": "text",
+          "field": "headline",
+          "box": [
+            80,
+            270,
+            920,
+            330
+          ],
+          "font_size": 104,
+          "min_font_size": 62,
+          "fill": "$ink",
+          "weight": 700
+        },
+        {
+          "id": "body",
+          "type": "text",
+          "field": "body",
+          "box": [
+            80,
+            650,
+            880,
+            205
+          ],
+          "font_size": 36,
+          "min_font_size": 26,
+          "fill": "$ink",
+          "weight": 400
+        },
+        {
+          "id": "details",
+          "type": "text",
+          "field": "details",
+          "box": [
+            80,
+            930,
+            900,
+            100
+          ],
+          "font_size": 28,
+          "min_font_size": 22,
+          "fill": "$ink",
+          "weight": 400
+        },
+        {
+          "id": "cta-panel",
+          "type": "rect",
+          "box": [
+            80,
+            1110,
+            800,
+            105
+          ],
+          "fill": "$accent",
+          "radius": 16,
+          "when_field": "cta"
+        },
+        {
+          "id": "cta",
+          "type": "text",
+          "field": "cta",
+          "box": [
+            110,
+            1138,
+            740,
+            53
+          ],
+          "font_size": 32,
+          "min_font_size": 24,
+          "fill": "$ink",
+          "weight": 700
+        }
+      ],
+      "review_label": {
+        "box": [
+          780,
+          52,
+          230,
+          40
+        ],
+        "fill": "$ink",
+        "colour": "$paper",
+        "font_size": 18
+      }
+    },
+    "square-card": {
+      "description": "Square promotion, message or editorial card.",
+      "canvas": [
+        1080,
+        1080
+      ],
+      "background": "$paper",
+      "evidence": [
+        "design.md#proposed-starter-layouts"
+      ],
+      "fields": {
+        "eyebrow": {
+          "required": false,
+          "max_length": 100
+        },
+        "headline": {
+          "required": true,
+          "max_length": 140
+        },
+        "body": {
+          "required": false,
+          "max_length": 360
+        },
+        "details": {
+          "required": false,
+          "max_length": 180
+        },
+        "cta": {
+          "required": false,
+          "max_length": 90
+        }
+      },
+      "layers": [
+        {
+          "id": "accent-rule",
+          "type": "rect",
+          "box": [
+            70,
+            150,
+            940,
+            8
+          ],
+          "fill": "$accent",
+          "radius": 0
+        },
+        {
+          "id": "eyebrow",
+          "type": "text",
+          "field": "eyebrow",
+          "box": [
+            70,
+            60,
+            650,
+            60
+          ],
+          "font_size": 26,
+          "min_font_size": 20,
+          "fill": "$ink",
+          "weight": 400
+        },
+        {
+          "id": "headline",
+          "type": "text",
+          "field": "headline",
+          "box": [
+            70,
+            230,
+            940,
+            260
+          ],
+          "font_size": 92,
+          "min_font_size": 56,
+          "fill": "$ink",
+          "weight": 700
+        },
+        {
+          "id": "body",
+          "type": "text",
+          "field": "body",
+          "box": [
+            70,
+            540,
+            920,
+            170
+          ],
+          "font_size": 32,
+          "min_font_size": 24,
+          "fill": "$ink",
+          "weight": 400
+        },
+        {
+          "id": "details",
+          "type": "text",
+          "field": "details",
+          "box": [
+            70,
+            760,
+            920,
+            85
+          ],
+          "font_size": 26,
+          "min_font_size": 20,
+          "fill": "$ink",
+          "weight": 400
+        },
+        {
+          "id": "cta-panel",
+          "type": "rect",
+          "box": [
+            70,
+            910,
+            940,
+            95
+          ],
+          "fill": "$accent",
+          "radius": 12,
+          "when_field": "cta"
+        },
+        {
+          "id": "cta",
+          "type": "text",
+          "field": "cta",
+          "box": [
+            100,
+            936,
+            880,
+            48
+          ],
+          "font_size": 30,
+          "min_font_size": 22,
+          "fill": "$ink",
+          "weight": 700
+        }
+      ],
+      "review_label": {
+        "box": [
+          780,
+          55,
+          230,
+          40
+        ],
+        "fill": "$ink",
+        "colour": "$paper",
+        "font_size": 18
+      }
+    },
+    "landscape": {
+      "description": "Wide campaign, thumbnail or presentation graphic.",
+      "canvas": [
+        1600,
+        900
+      ],
+      "background": "$ink",
+      "evidence": [
+        "design.md#proposed-starter-layouts"
+      ],
+      "fields": {
+        "eyebrow": {
+          "required": false,
+          "max_length": 100
+        },
+        "headline": {
+          "required": true,
+          "max_length": 140
+        },
+        "body": {
+          "required": false,
+          "max_length": 360
+        },
+        "details": {
+          "required": false,
+          "max_length": 180
+        },
+        "cta": {
+          "required": false,
+          "max_length": 90
+        }
+      },
+      "layers": [
+        {
+          "id": "accent-rule",
+          "type": "rect",
+          "box": [
+            80,
+            160,
+            90,
+            8
+          ],
+          "fill": "$accent",
+          "radius": 0
+        },
+        {
+          "id": "eyebrow",
+          "type": "text",
+          "field": "eyebrow",
+          "box": [
+            80,
+            60,
+            1000,
+            60
+          ],
+          "font_size": 28,
+          "min_font_size": 22,
+          "fill": "$paper",
+          "weight": 400
+        },
+        {
+          "id": "headline",
+          "type": "text",
+          "field": "headline",
+          "box": [
+            80,
+            225,
+            1390,
+            210
+          ],
+          "font_size": 98,
+          "min_font_size": 60,
+          "fill": "$paper",
+          "weight": 700
+        },
+        {
+          "id": "body",
+          "type": "text",
+          "field": "body",
+          "box": [
+            80,
+            490,
+            1340,
+            125
+          ],
+          "font_size": 36,
+          "min_font_size": 26,
+          "fill": "$paper",
+          "weight": 400
+        },
+        {
+          "id": "details",
+          "type": "text",
+          "field": "details",
+          "box": [
+            80,
+            650,
+            1350,
+            75
+          ],
+          "font_size": 28,
+          "min_font_size": 20,
+          "fill": "$paper",
+          "weight": 400
+        },
+        {
+          "id": "cta-panel",
+          "type": "rect",
+          "box": [
+            80,
+            770,
+            1100,
+            82
+          ],
+          "fill": "$accent",
+          "radius": 12,
+          "when_field": "cta"
+        },
+        {
+          "id": "cta",
+          "type": "text",
+          "field": "cta",
+          "box": [
+            110,
+            787,
+            1040,
+            50
+          ],
+          "font_size": 30,
+          "min_font_size": 22,
+          "fill": "$ink",
+          "weight": 700
+        }
+      ],
+      "review_label": {
+        "box": [
+          1290,
+          60,
+          230,
+          40
+        ],
+        "fill": "$ink",
+        "colour": "$paper",
+        "font_size": 18
+      }
+    }
+  }
+}

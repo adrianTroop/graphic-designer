@@ -1,13 +1,17 @@
 {
   "name": "hermes-graphic-designer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "A reusable Hermes design workflow with evidence-backed brand packages and draft artwork generation.",
-  "engines": { "node": ">=22" },
+  "description": "Universal graphic design workflow for Hermes Agent with configurable brand packages and data-driven artwork templates.",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "test": "node --test tests/*.test.cjs",
-    "validate": "node src/cli.cjs validate examples/operational.json",
-    "demo": "node src/cli.cjs render examples/operational.json && node src/cli.cjs render examples/guide.json && node src/cli.cjs render examples/monthly.json"
+    "validate": "node src/cli.cjs validate examples/announcement.json",
+    "demo": "node src/cli.cjs render examples/announcement.json && node src/cli.cjs render examples/square.json && node src/cli.cjs render examples/landscape.json"
   },
-  "dependencies": { "sharp": "0.35.5" }
+  "dependencies": {
+    "sharp": "0.35.5"
+  }
 }

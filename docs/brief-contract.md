@@ -1,36 +1,40 @@
-# Brief contract · version 1
+# Brief contract · schema version 2
 
-The renderer places supplied text. Hermes interprets the user's request and prepares the brief. Neither the renderer nor its mechanical QA establishes that an event fact, translation or permission is correct.
+A brief selects a **brand** and one of that brand's **templates**. No event, venue, date, industry or language pair is assumed. The renderer places supplied text; Hermes interprets the request and assembles the brief.
 
-Use an example in `examples/` as the starting point. Unknown fields and unsupported families are rejected so the system cannot silently ignore a requested output.
+```json
+{
+  "schema_version": 2,
+  "job_id": "launch-v01",
+  "brand": "acme",
+  "template": "product-launch",
+  "locales": ["en"],
+  "content_status": "demo",
+  "content": {"product": "A useful idea", "price": "Details to follow", "cta": "Explore"},
+  "assets": {},
+  "fact_sources": []
+}
+```
 
-| Field | Meaning |
+The selected template must define those field names. The sample is a structural example; `init-brand` supplies a runnable announcement brief.
+
+| Field | Rule |
 | --- | --- |
-| `schema_version` | `1` |
-| `job_id` | Unique lowercase hyphenated identifier, at most 80 characters; include a revision suffix. Existing jobs cannot be overwritten. |
-| `brand` | ID of a folder under `brands/`. |
-| `family` | `operational`, `guide` or `monthly-cover`; single covers only in v0.1. |
-| `language` | `TC-EN`, `SC-EN` or `EN`; describes supplied copy, not an automatic translation service. |
-| `content_status` | `demo` or `provided-facts`. Demo artwork is visibly labelled DESIGN SAMPLE. Other artwork remains DRAFT / REVIEW PENDING. |
-| `headline.primary` | Primary headline, at most 110 characters. Actual fit is checked at render time. |
-| `headline.secondary` | Supporting/English headline, at most 180 characters. |
-| `event.name` | Event or package header, at most 120 characters. |
-| `event.date_display` | Explicit display wording including relevant time/timezone if needed, at most 120 characters. |
-| `event.venue` | Explicit venue wording, at most 120 characters. |
-| `notice` | Footer wording, at most 240 characters. |
-| `fact_sources` | HTTP(S) source URLs. At least one for `provided-facts`; URLs are recorded but not fetched or fact-checked by the renderer. |
-| `icon` | Optional asset-manifest ID for an operational cover. Must resolve to a known local asset. |
+| `schema_version` | `2`; v1 is rejected with migration guidance. |
+| `job_id` | Unique lowercase hyphenated ID, at most 80 characters. Existing jobs are preserved. |
+| `brand` | Explicit brand-folder ID. |
+| `template` | Any template name defined in that brand's configuration. |
+| `locales` | 1–8 BCP 47 tags, such as `en`, `es`, `fr-FR` or `zh-Hant`. They describe supplied content; translation is not automatic. The first tag guides text segmentation. |
+| `content_status` | `demo` or `provided-facts`. Both produce review drafts. |
+| `content` | String values keyed by template-defined field names. Required fields and length limits come from the template. Unknown fields are rejected. |
+| `assets` | Optional mapping of template asset-binding names to local manifest asset IDs. Fixed assets can instead live in the template. |
+| `fact_sources` | HTTP(S) URLs without credentials; at least one for `provided-facts`. URLs are recorded, not automatically verified. |
+| `caption`, `alt_text` | Optional draft text. If absent, a basic draft is assembled from the supplied content; review it before use. |
 
-Each rendered job contains:
+No logo, photograph or secondary language is mandatory. Optional empty text fields are omitted. A shape or asset can also be conditional on a field through `when_field`.
 
-- `artwork.svg`: editable text and grouped components; original raster logos remain raster; supplied vector components remain paths.
-- `artwork.png`: rendered full-size graphic.
-- `brief.json`: exact normalized input object supplied to the renderer.
-- `manifest.json`: brand, template evidence IDs, dimensions, font, asset provenance and SHA-256 digests.
-- `qa.json`: mechanical checks plus the manual checks that remain pending.
-- `caption.txt` and `alt-text.txt`: drafts derived from the supplied brief, for review.
-- `review.html`: local visual review page with downloads.
+## Delivery
 
-There is no automatic transition to approved/published. The review label is intentional in this starter; preparing an approved campaign export requires a subsequent, explicit production step. No scheduler or social publishing API is implemented.
+Each job has eight files: `artwork.svg`, `artwork.png`, `brief.json`, `manifest.json`, `qa.json`, `caption.txt`, `alt-text.txt` and `review.html`. The manifest records the brand, template, locales, fonts, asset hashes and source/evidence references. Mechanical QA checks dimensions and text fit; visual and factual review remains pending.
 
-Fit failures stop generation. Shorten or restructure copy, or author a suitable new layout; do not make a dense notice unreadable just to satisfy the template.
+A fit failure stops generation instead of clipping text or shrinking it below the template's chosen minimum. Change the composition or copy while preserving meaning. A successful render does not approve or publish the work.

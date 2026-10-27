@@ -1,0 +1,19 @@
+{
+  "schema_version": 2,
+  "job_id": "demo-square-v02",
+  "brand": "studio-demo",
+  "template": "square-card",
+  "locales": [
+    "en"
+  ],
+  "content_status": "demo",
+  "content": {
+    "eyebrow": "STUDIO DEMO / A SIMPLE MESSAGE",
+    "headline": "Start with\nsomething clear.",
+    "body": "A headline, a useful detail and a next step. Every layer is yours to shape.",
+    "details": "Neutral demonstration · 1080 × 1080",
+    "cta": "Built around your brief."
+  },
+  "assets": {},
+  "fact_sources": []
+}

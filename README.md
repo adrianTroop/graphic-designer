@@ -1,58 +1,47 @@
 # Graphic Designer
 
-A reusable designer-bot project for **Nous Research Hermes Agent**, with Kai Tak Sports Park as the first evidence-backed brand package.
+A **brand-independent graphic designer for Nous Research Hermes Agent**. Bring any brand's guide, assets and brief. The bot builds a brand package, chooses an appropriate composition and produces reviewable artwork.
 
-The project turns a structured brief into a **review draft**: PNG artwork, editable SVG, caption and alt-text drafts, provenance manifest and a QA report. It also carries the complete audited brand guide, publication references and transparent assets so Hermes can make informed design choices.
+![Neutral portrait, square and landscape examples](examples/rendered/preview.png)
 
-![Three generated Kai Tak design examples](examples/rendered/preview.png)
+No client identity, sector, palette, logo, language pair or event structure is built into the engine. The included **Studio Demo** is fictional, uses no logo or external assets, and can be replaced completely.
 
 ## Download
 
-[Download the source ZIP](https://github.com/adrianTroop/graphic-designer/archive/refs/heads/main.zip), or clone the repository:
+[Download ZIP](https://github.com/adrianTroop/graphic-designer/archive/refs/heads/main.zip), or:
 
 ```bash
 git clone https://github.com/adrianTroop/graphic-designer.git
 cd graphic-designer
-```
-
-The download includes the brand guide, transparent assets, reference library and example outputs. The archive does not include installed dependencies; follow the quick start below.
-
-## What works now
-
-- Hermes project instructions, a `brand-designer` skill and an optional designer `SOUL.md`.
-- Kai Tak design rules, 52 publication records and 50 transparent asset variants.
-- Three automatic single-cover layouts: red operational reminder, purple event guide and monthly programme cover.
-- Bilingual text placement, wrapping and minimum-size overflow checks.
-- Separate vector components, editable text and preserved source raster logos in the SVG.
-- Versioned jobs that refuse destructive overwrites.
-- Mechanical QA and an explicit list of human checks still pending.
-
-This is a working v0.1 foundation, not full autonomous social management. Inner carousel pages, calendars, photo editing, collage, PDF and video production remain designer-led. It does not publish or schedule posts. The attached guide defines those workflows without claiming that the renderer implements them.
-
-## Quick start
-
-Requirements: Node.js 22+ and a suitable installed font. The Kai Tak working configuration uses **Arial Unicode MS**, a substitute rather than the recovered official typeface. On another machine, install a CJK-capable font and set `DESIGNER_FONT` to its family name; inspect the rendered glyphs because font substitution changes spacing.
-
-```bash
 npm ci
 npm test
-node src/cli.cjs validate examples/operational.json
 npm run demo
 ```
 
-Open `jobs/demo-reminder-v01/review.html`, `jobs/demo-guide-v01/review.html` and `jobs/demo-monthly-v01/review.html`. Running a demo twice intentionally fails on the existing job IDs; use a new version in a copied brief. Prepared preview files are retained under `examples/rendered/` for immediate review.
+Requirements: Node.js 22+ and an installed font that supports the requested languages. The demo uses the system's generic sans-serif. Set `DESIGNER_FONT` to an installed family when an explicit override is needed.
 
-For a different installed font:
+Open a generated job's `review.html`. Three neutral examples are also included under [examples/rendered](examples/rendered/index.html). Job IDs are immutable; use a new revision ID to rerun a brief without overwriting earlier work.
+
+## Add any brand
 
 ```bash
-DESIGNER_FONT="Noto Sans CJK TC" node src/cli.cjs render examples/operational.json
+node src/cli.cjs init-brand acme --name "Acme"
+node src/cli.cjs validate-brand acme
+node src/cli.cjs render brands/acme/example-brief.json
 ```
 
-That font must actually be available. A successful font fallback is not proof that the intended font was used; visual checking remains required.
+This creates a working **provisional** package. Replace its neutral colours, typography, layouts and copy with the brand's own rules. Add original logos or photographs when needed; neither is mandatory.
+
+- `brands/acme/design.md`: identity, publication families, references, workflow and gaps.
+- `brands/acme/brand.json`: tokens, fonts, template names, arbitrary content fields, canvas sizes and ordered layers.
+- `brands/acme/assets/asset-manifest.json`: original/adapted asset paths and provenance.
+- `brands/acme/example-brief.json`: a ready-to-render sample input.
+
+New local brand folders are ignored by Git by default. Share a client package deliberately when appropriate; the public core does not need client assets to function.
 
 ## Use with Hermes
 
-Start Hermes from this repository. The project-level `.hermes.md` is the basic entry file; it tells Hermes to use the brand package and workflow. The optional `SOUL.md` supplies the dedicated bot's persona.
+From the repository root:
 
 ```bash
 hermes skills trust
@@ -61,33 +50,36 @@ hermes chat -s brand-designer
 
 Example request:
 
-> Use the Kai Tak brand package. Create a Traditional Chinese and English operational reminder draft from examples/operational.json with job ID my-reminder-v01. Keep demo status, render it, inspect the PNG, and deliver the SVG, PNG, caption, alt text and QA report.
+> Create a brand package for my company from the guide and assets I provide. Define a portrait promotion, square announcement and landscape campaign graphic in our own style. Make the content fields fit our business. Render a draft, inspect the result, and deliver editable files and a QA report.
 
-See [Hermes setup](docs/hermes-setup.md) for a separate profile and the current integration verification limit.
+The [basic Hermes file](.hermes.md) supplies the project instructions. The [workflow skill](.hermes/skills/brand-designer/SKILL.md) gives the process. An optional [SOUL.md](profiles/graphic-designer/SOUL.md) supplies a dedicated designer persona. See [Hermes setup](docs/hermes-setup.md).
 
-## Repository structure
+## What is universal
 
-```text
-.hermes.md                         Project entry instructions
-.hermes/skills/brand-designer/      Hermes workflow skill
-profiles/graphic-designer/SOUL.md   Optional dedicated persona
-brands/kai-tak/                    Design guide, tokens, assets and evidence
-brands/_template/                  New-brand package contract
-src/                              Validation and artwork generation
-tests/                            Meaningful renderer/validation tests
-examples/                         Briefs and reviewed preview renders
-docs/                             Setup, brief contract and standardisation
-jobs/                             Generated work; excluded from Git
-```
+| In the core | In each brand package |
+| --- | --- |
+| Brief validation and production workflow | Identity, audience, tone and references |
+| Text wrapping, overflow checks and editable SVG composition | Fonts, colours, spacing and visual rules |
+| Rectangles, ellipses, lines, text and local asset layers | Templates, layer order and content fields |
+| PNG export, provenance and review reports | Logos, photography, iconography and motifs |
+| Versioned jobs and reusable onboarding | Sector-specific facts, claims and language variants |
 
-Read [the Kai Tak design guide](brands/kai-tak/design.md), [asset catalogue](brands/kai-tak/assets/index.html), [brief contract](docs/brief-contract.md) and [standardisation plan](docs/standardisation.md).
+A product launch can use `product`, `price` and `cta`; an editorial cover can use `title`, `deck` and `credit`; a venue can use `date` and `location`. Those fields and template names are defined in JSON, without changing renderer code. There is no fallback to another brand.
 
-## Review and asset limitations
+## Outputs and limits
 
-All generated work remains visibly marked DESIGN SAMPLE or DRAFT / REVIEW PENDING. Mechanical checks cannot verify translation, facts, rights, legibility or brand approval. The white primary logo is a native 302px raster; this project keeps it below that width rather than manufacturing a vector master. Original, adapted and redrawn assets are labelled individually.
+Each job includes an editable SVG, PNG, original brief, provenance manifest, mechanical QA report, caption/alt-text drafts and an HTML review page. Vector assets remain vector components; original raster assets remain raster. Drafts carry a visible review label.
 
-The repository contains third-party brand assets and reference images. Their original ownership and usage restrictions remain in place; public download does not make those materials public domain. No open-source licence is assigned to them. Asset sources and adaptation status are recorded in the brand package's manifest.
+The included renderer produces **static compositions**. Hermes can use other available tools for illustration, documents, motion and specialist print work, but this repository does not itself implement video editing, CMYK/prepress certification, scheduling, publishing or analytics. Mechanical checks do not verify factual accuracy, translations, font shaping, rights or brand approval.
 
-## Hermes compatibility sources
+## Documentation
 
-The integration follows the official [configuration/context documentation](https://hermes-agent.nousresearch.com/docs/user-guide/configuration), [skills documentation](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills), and [profile documentation](https://hermes-agent.nousresearch.com/docs/user-guide/profiles), cross-checked against the local Hermes checkout on 27 October 2026. The renderer runs independently of a model provider; the natural-language bot requires a configured Hermes provider and tools.
+- [Universal design standard](design.md)
+- [Brand onboarding](docs/brand-onboarding.md)
+- [Template contract](docs/template-contract.md)
+- [Brief contract](docs/brief-contract.md)
+- [Standardisation model](docs/standardisation.md)
+- [v2 migration](docs/migration-v2.md)
+- [Verification](docs/verification.md)
+
+The current distribution includes only neutral original demo compositions. Third-party assets added by users retain their own ownership and usage terms. Public availability is not a licence for imported brand material.

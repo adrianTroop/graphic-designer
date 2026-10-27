@@ -1,0 +1,90 @@
+{
+  "mechanical_status": "passed",
+  "dimensions": [
+    1080,
+    1350
+  ],
+  "text_boxes": [
+    {
+      "id": "eyebrow",
+      "box": [
+        80,
+        68,
+        630,
+        65
+      ],
+      "font_size": 28,
+      "line_count": 1,
+      "status": "fits"
+    },
+    {
+      "id": "headline",
+      "box": [
+        80,
+        270,
+        920,
+        330
+      ],
+      "font_size": 104,
+      "line_count": 2,
+      "status": "fits"
+    },
+    {
+      "id": "body",
+      "box": [
+        80,
+        650,
+        880,
+        205
+      ],
+      "font_size": 36,
+      "line_count": 2,
+      "status": "fits"
+    },
+    {
+      "id": "details",
+      "box": [
+        80,
+        930,
+        900,
+        100
+      ],
+      "font_size": 28,
+      "line_count": 1,
+      "status": "fits"
+    },
+    {
+      "id": "cta",
+      "box": [
+        110,
+        1138,
+        740,
+        53
+      ],
+      "font_size": 32,
+      "line_count": 1,
+      "status": "fits"
+    },
+    {
+      "id": "review-label",
+      "box": [
+        780,
+        52,
+        230,
+        40
+      ],
+      "font_size": 18,
+      "line_count": 1,
+      "status": "fits"
+    }
+  ],
+  "asset_count": 0,
+  "manual_checks_pending": [
+    "Visual hierarchy and reference comparison",
+    "Font and script shaping",
+    "Readability at placement size",
+    "Claims, facts and translations",
+    "Asset ownership and approvals"
+  ],
+  "review_state": "pending"
+}

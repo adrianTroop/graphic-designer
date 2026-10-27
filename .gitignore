@@ -11,3 +11,8 @@ work/
 .hermes/sessions/
 __pycache__/
 .venv/
+
+# Local client packages are shared only deliberately.
+/brands/*/
+!/brands/_template/
+!/brands/studio-demo/

@@ -1,0 +1,19 @@
+{
+  "schema_version": 2,
+  "job_id": "demo-portrait-v02",
+  "brand": "studio-demo",
+  "template": "announcement",
+  "locales": [
+    "en"
+  ],
+  "content_status": "demo",
+  "content": {
+    "eyebrow": "STUDIO DEMO / NEW IDEAS",
+    "headline": "Your brand.\nYour design.",
+    "body": "Turn a clear brief into an editable visual. Bring your own identity, assets and voice.",
+    "details": "Fictional brand · Illustration of the workflow",
+    "cta": "Make something that fits."
+  },
+  "assets": {},
+  "fact_sources": []
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": 2,
+  "job_id": "demo-landscape-v02",
+  "brand": "studio-demo",
+  "template": "landscape",
+  "locales": [
+    "en"
+  ],
+  "content_status": "demo",
+  "content": {
+    "eyebrow": "STUDIO DEMO / FLEXIBLE BY DESIGN",
+    "headline": "One engine. Your visual system.",
+    "body": "Choose the format. Define the fields. Set the type, colour and spacing in your brand package.",
+    "details": "Independent of any client, venue or industry.",
+    "cta": "Create once. Adapt with purpose."
+  },
+  "assets": {},
+  "fact_sources": []
+}

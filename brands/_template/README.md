@@ -1,20 +1,11 @@
-# New brand package
+# New brand scaffold
 
-Create `brands/<brand-id>/` with:
+Create a working package with:
 
-```text
-brand.json                  Machine-readable tokens and supported layout geometry
-design.md                   Evidence-backed design and publication rules
-assets/asset-manifest.json   Asset IDs, paths, sources, status and dimensions
-assets/...                  Original and adapted production assets
-references/source-index.json
-references/...              Publication evidence and analysis material
+```bash
+node src/cli.cjs init-brand my-brand --name "My Brand"
 ```
 
-Use the Kai Tak files as structural examples, not as generic brand styling. An empty package is not a working brand.
+The command writes `brand.json`, `design.md`, an empty asset manifest and an example brief. It refuses to overwrite an existing package. The neutral starting colours, font and templates are provisional and must be adapted to the brand.
 
-`brand.json` must include `schema_version: 1`, matching `id`, `name`, `design_guide`, `asset_manifest`, a CJK-capable `font_family` when needed, `font_status`, `logo`, `logo_width`, `logo_position`, `tokens` and `templates`. The current renderer understands the three template names in `docs/brief-contract.md` and the box geometry used by the Kai Tak package. New layout families require code and visual verification.
-
-An asset manifest has an `assets` array. Each record uses a stable `id`, `title`, `category`, `status`, `source`, `note`, relative `files` and dimensions. The current renderer requires a transparent PNG export for used assets and preserves an SVG source when present. Referenced files must remain inside the package.
-
-Separate official specifications from sampled values, substitute fonts and reconstructed motifs. Record missing masters as gaps rather than silently creating replacements.
+Use [brand onboarding](../../docs/brand-onboarding.md), the [template contract](../../docs/template-contract.md) and the [brief contract](../../docs/brief-contract.md). No logo, event field, industry or language pair is required. Add assets only from appropriate sources and record their provenance.

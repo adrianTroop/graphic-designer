@@ -1,0 +1,23 @@
+{
+  "schema_version": 2,
+  "job_id": "demo-landscape-v02",
+  "brand": "studio-demo",
+  "template": "landscape",
+  "locales": [
+    "en"
+  ],
+  "canvas": [
+    1600,
+    900
+  ],
+  "created_at": "2026-10-27T16:07:57.260Z",
+  "review_state": "pending",
+  "content_status": "demo",
+  "font": "sans-serif",
+  "font_status": "Generic system sans-serif for demonstration. Supply a licensed brand font for production.",
+  "evidence": [
+    "design.md#proposed-starter-layouts"
+  ],
+  "assets": [],
+  "fact_sources": []
+}

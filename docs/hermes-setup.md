@@ -4,7 +4,7 @@ This repository targets Nous Research Hermes Agent. It does not overwrite your e
 
 ## Use the existing Hermes profile
 
-1. Install the Node dependency with `npm install` inside this repository.
+1. Install the Node dependency with `npm ci` inside this repository.
 2. Run `hermes skills trust` from the repository root to enable its project-local skill.
 3. Start `hermes chat -s brand-designer` from the same root.
 
@@ -17,7 +17,7 @@ Hermes discovers project skills relative to the nearest Git root. This handoff i
 Create a **new** profile rather than overwriting an existing one. These are setup commands for the user to run; they have not been executed by the handoff.
 
 ```bash
-hermes profile create graphic-designer --no-alias --description "Creates branded social graphics from briefs, evidence and reusable assets."
+hermes profile create graphic-designer --no-alias --description "Creates graphics for any brand from briefs, evidence and configurable assets."
 hermes -p graphic-designer setup
 ```
 
