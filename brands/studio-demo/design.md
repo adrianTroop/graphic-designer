@@ -13,3 +13,7 @@ All visual decisions here are original implementation examples, not recovered br
 Only `headline` is required. CTA panels are conditional on CTA content. All templates carry a visible draft/sample label. Each text block and shape is a separate layer. Canvas sizes are proposed working examples, not platform specifications.
 
 The fields, templates, colours, sizes, alignment and geometry can all be changed in `brand.json`. Fonts and layout still need visual review on the target machine. Use a real client's own source material when creating its package.
+
+## Workspace settings
+
+The separate `workspace-design.md` and `image-style.txt` provide paste-ready summaries. `workspace-settings.json` defines colour order; values and font roles come from `brand.json`. Export them with `node src/cli.cjs export-workspace studio-demo --id v01`. Full visual references and any future transparent assets stay in the brand library.

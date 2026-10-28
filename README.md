@@ -36,8 +36,21 @@ This creates a working **provisional** package. Replace its neutral colours, typ
 - `brands/acme/brand.json`: tokens, fonts, template names, arbitrary content fields, canvas sizes and ordered layers.
 - `brands/acme/assets/asset-manifest.json`: original/adapted asset paths and provenance.
 - `brands/acme/example-brief.json`: a ready-to-render sample input.
+- `brands/acme/workspace-design.md`, `image-style.txt` and `workspace-settings.json`: separate sources for workspace Brand guidelines fields.
 
 New local brand folders are ignored by Git by default. Share a client package deliberately when appropriate; the public core does not need client assets to function.
+
+## Export workspace brand guidelines
+
+Generate paste-ready settings for a screen with separate Design guide, Image style, Brand colours and Fonts fields:
+
+```bash
+node src/cli.cjs export-workspace studio-demo --id v01
+```
+
+This writes **DESIGN.md** (maximum 12,000), **IMAGE_STYLE.txt** (maximum 600), **BRAND_COLOURS.txt** (primary first), **FONTS.txt** (heading and body), a JSON record and paste instructions under `exports/studio-demo/v01/`. Over-limit text fails without truncation. Use your own brand ID and a new revision for each export.
+
+See the [ready-to-copy fictional example](examples/workspace-settings/studio-demo/v01/README.md) and [setup instructions](docs/workspace-brand-settings.md). Pictures and transparent assets remain in the full brand guide and asset library. These text exports do not change workspace settings automatically.
 
 ## Use with Hermes
 
@@ -79,6 +92,7 @@ The included renderer produces **static compositions**. Hermes can use other ava
 - [Template contract](docs/template-contract.md)
 - [Brief contract](docs/brief-contract.md)
 - [Standardisation model](docs/standardisation.md)
+- [Workspace brand settings](docs/workspace-brand-settings.md)
 - [v2 migration](docs/migration-v2.md)
 - [Verification](docs/verification.md)
 

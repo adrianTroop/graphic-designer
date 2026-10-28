@@ -1,6 +1,6 @@
 ---
 name: brand-designer
-description: Create graphics for any brand from briefs and evidence.
+description: Create graphics and export workspace brand settings from brand briefs and evidence.
 metadata:
   hermes:
     tags: [design, branding, production]
@@ -21,6 +21,10 @@ Use for brand-consistent graphics, digital campaigns, social artwork, posters, p
 4. Read `docs/brief-contract.md` and `docs/template-contract.md` when configuring a render. Validate the package and brief, then render. Use SVG for editable grouped components and PNG for placement. Use other available design tools for outputs beyond this engine's static capabilities.
 5. Open the result and compare it with the selected references. Check hierarchy, text wrapping, script shaping, contrast, logo sharpness, crop, spacing and final-size legibility. Address overflow by restructuring the composition or copy; preserve the user's meaning.
 6. Deliver the actual generated files, caption/alt-text drafts where relevant, source provenance and a concise QA result. Record unverified claims or missing assets specifically. Renderer jobs remain drafts until the relevant review is complete.
+
+## Workspace settings
+
+For a workspace Brand guidelines export, read `docs/workspace-brand-settings.md`. Summarise the selected brand's guide into the separate paste-ready sources, preserving publication families and formats. Run `export-workspace <brand-id> --id <revision>` and deliver the generated guide, image style, ordered colours and font fields. Keep visual references and transparent assets in the supporting library. This route does not require an artwork render and does not save settings in the target app.
 
 ## Verification
 

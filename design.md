@@ -44,4 +44,6 @@ Deliver the editable master, requested exports, provenance and version informati
 
 ## Maintain the system
 
+For workspace settings, keep a self-contained text summary separate from the full visual guide. Export the design rules, image style, ordered palette and heading/body fonts into their respective fields. Retain publication formats in the summary. Keep pictures, annotations and original transparent assets in the supporting library; a pasted Markdown reference does not transfer an asset. Use the [workspace export contract](docs/workspace-brand-settings.md) for limits and commands.
+
 Keep reusable behaviour in the core and client-specific rules under `brands/<id>/`. Introduce a new template only when the communication job needs it. Record source changes and retain old job versions. A change to a key fact should trigger review of all related language and format variants.

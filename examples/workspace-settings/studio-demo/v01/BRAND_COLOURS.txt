@@ -1,0 +1,3 @@
+1. Ink | #202822 | primary
+2. Paper | #F4F4EE | background
+3. Lime | #C5E86C | accent

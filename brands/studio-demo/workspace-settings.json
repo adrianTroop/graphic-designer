@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "design_guide_file": "workspace-design.md",
+  "image_style_file": "image-style.txt",
+  "colours": [
+    {"name": "Ink", "token": "ink", "role": "primary"},
+    {"name": "Paper", "token": "paper", "role": "background"},
+    {"name": "Lime", "token": "accent", "role": "accent"}
+  ]
+}

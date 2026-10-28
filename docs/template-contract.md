@@ -12,11 +12,11 @@ The core interprets ordered layers. All visual decisions belong to a brand packa
 | `status` | Official, evidence-derived or provisional status in plain language. |
 | `design_guide` | Relative path to the brand's written guide. |
 | `asset_manifest` | Relative path to the asset registry. An empty `assets` array is valid. |
-| `typography` | `family` and a `status` explaining the source/substitute. |
+| `typography` | Required `family` and `status`; optional `heading` and `body` font families. |
 | `tokens` | Named colours. Hex values (`#RGB`, `#RRGGBB`, `#RRGGBBAA`) or `none`. |
 | `templates` | Map of arbitrary lowercase hyphenated template names. |
 
-Use `$token_name` in a colour field to resolve a token. The core does not define any brand colours. `DESIGNER_FONT` overrides the configured font for a run; the resolved family is recorded in the manifest. Fonts must be available locally and reviewed for actual glyph coverage.
+Use `$token_name` in a colour field to resolve a token. The core does not define any brand colours. `DESIGNER_FONT` overrides all font roles for a rendering run; resolved families are recorded in the manifest and each text-box QA entry. Without that override, heading/body fall back to `family` when omitted. Fonts must be available locally and reviewed for actual glyph coverage. Workspace exports use configured brand families, unaffected by the rendering override.
 
 ## Template structure
 
@@ -37,7 +37,7 @@ Every layer has `id`, `type` and `box: [x, y, width, height]`, entirely inside i
 | `rect` | `fill`, optional `stroke`, `stroke_width`, `radius`, `opacity` |
 | `ellipse` | Bounding box, `fill`, optional `stroke`, `stroke_width`, `opacity` |
 | `line` | Box start and end define the line; `stroke`, `stroke_width`, optional `opacity`. Width or height can be zero. |
-| `text` | Exactly one of `field` or static `text`; required `font_size`, `min_font_size`, `fill`; optional `weight`, `align`, `valign`, `direction`, `line_height` |
+| `text` | Exactly one of `field` or static `text`; required `font_size`, `min_font_size`, `fill`; optional `font_role` (`heading`, `body`, `default`), `weight`, `align`, `valign`, `direction`, `line_height` |
 | `asset` | Exactly one fixed `asset` ID or `asset_field` binding; optional `optional: true` and `opacity`. Images use proportional contain placement. |
 
 Text alignment: `left`, `center`, `right`. Vertical alignment: `top`, `middle`, `bottom`. Direction: `ltr` or `rtl`. Line height is a multiplier from 1 to 2. The renderer segments words and graphemes using the brief's first locale; complex script shaping still requires suitable fonts and visual review. Minimum font sizes are template decisions, with an engine floor of 10px.

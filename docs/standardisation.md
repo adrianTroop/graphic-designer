@@ -12,7 +12,7 @@ No client, sector, palette or field set is a core default. The fictional demo us
 
 ## Versioning
 
-Project v0.2.0 uses brief and brand schema version 2. This is a deliberate breaking change from the event-shaped v1 format; use [migration guidance](migration-v2.md). New brand IDs and job IDs are explicit. Changes to an existing approved export require a new job revision.
+Project v0.3.0 retains brief and brand schema version 2, with optional heading/body font roles. Workspace exports use a separate schema version 1 and separate revision IDs. The v2 brand format was a deliberate breaking change from the event-shaped v1 format; use [migration guidance](migration-v2.md). New brand IDs and job IDs are explicit. Changes to an existing export require a new revision.
 
 ## Repeatable quality
 

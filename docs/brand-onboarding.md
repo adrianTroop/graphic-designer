@@ -38,4 +38,6 @@ Inspect the actual PNG, edit the composition if needed, and retain the SVG and p
 
 ## 7. Maintain
 
+When the destination uses workspace Brand guidelines, also complete `workspace-design.md`, `image-style.txt` and `workspace-settings.json`, then export with `node src/cli.cjs export-workspace my-brand --id v01`. Use the [workspace settings guide](workspace-brand-settings.md). Keep the full guide's pictures and transparent assets available separately. The starter summary and palette are provisional until adapted to this brand.
+
 Keep variants and languages linked to the same authoritative facts. Use unique job revisions. Update brand rules only from new evidence or a user decision. Sharing a package is an explicit choice; the universal repository needs no private client material.

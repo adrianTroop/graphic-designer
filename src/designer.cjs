@@ -56,7 +56,8 @@ function validateBrand(brand) {
   object(brand,['schema_version','id','name','status','design_guide','asset_manifest','typography','tokens','templates'],'brand');
   if(brand.schema_version!==2) throw new Error('Brand schema_version must be 2');
   slug(brand.id,'brand.id');text(brand.name,'brand.name',160);text(brand.status,'brand.status',300);
-  object(brand.typography,['family','status'],'typography');text(brand.typography.family,'font family',160);text(brand.typography.status,'font status',500);
+  object(brand.typography,['family','heading','body','status'],'typography');text(brand.typography.family,'font family',160);text(brand.typography.status,'font status',500);
+  for(const role of ['heading','body']) if(brand.typography[role]!==undefined) text(brand.typography[role],`${role} font`,160);
   object(brand.tokens,null,'tokens');for(const v of Object.values(brand.tokens)) colour(v,{});
   object(brand.templates,null,'templates');if(!Object.keys(brand.templates).length) throw new Error('Brand needs at least one template');
   for(const [name,t] of Object.entries(brand.templates)) {
@@ -74,9 +75,10 @@ function validateBrand(brand) {
     if(!Array.isArray(t.layers)||!t.layers.length||t.layers.length>100) throw new Error('Template needs 1–100 layers');
     const ids=new Set();const consumed=new Set();
     for(const l of t.layers) {
-      object(l,['id','type','box','fill','stroke','stroke_width','radius','opacity','field','text','font_size','min_font_size','weight','align','valign','direction','line_height','asset','asset_field','optional','when_field'],'layer');
+      object(l,['id','type','box','fill','stroke','stroke_width','radius','opacity','field','text','font_size','min_font_size','font_role','weight','align','valign','direction','line_height','asset','asset_field','optional','when_field'],'layer');
       slug(l.id,'layer.id');if(['background','review-label','review-label-background'].includes(l.id)) throw new Error('Reserved layer ID');if(ids.has(l.id)) throw new Error(`Duplicate layer ID: ${l.id}`);ids.add(l.id);
       if(!['rect','ellipse','line','text','asset'].includes(l.type)) throw new Error(`Unsupported layer type: ${l.type}`);
+      if(l.font_role!==undefined&&(l.type!=='text'||!['heading','body','default'].includes(l.font_role))) throw new Error('font_role must be heading, body or default on a text layer');
       box(l.box,t.canvas,l.id,l.type==='line');
       if(l.when_field!==undefined&&!Object.hasOwn(t.fields,l.when_field)) throw new Error('Unknown conditional field');
       if(l.fill!==undefined) colour(l.fill,brand.tokens);if(l.stroke!==undefined) colour(l.stroke,brand.tokens);
@@ -185,7 +187,7 @@ async function textLayer(l,value,font,tokens,locale,checks) {
   const px=align==='center'?x+w/2:align==='right'?x+w:x;
   const anchor=align==='center'?'middle':((align==='right')!==rtl?'end':'start');
   const spare=h-lines.length*size*leading;const offset=l.valign==='middle'?spare/2:l.valign==='bottom'?spare:0;
-  checks.push({id:l.id,box:l.box,font_size:size,line_count:lines.length,status:'fits'});
+  checks.push({id:l.id,box:l.box,font_family:font,font_size:size,line_count:lines.length,status:'fits'});
   return `<g id="${l.id}" data-component="editable-text"><text font-family="${esc(font)}" font-size="${size}" font-weight="${weight}" fill="${colour(l.fill,tokens)}" text-anchor="${anchor}" direction="${rtl?'rtl':'ltr'}">${lines.map((s,i)=>`<tspan x="${px}" y="${y+offset+size+i*size*leading}">${esc(s)}</tspan>`).join('')}</text></g>`;
 }
 function assetLayer(layer,a) {
@@ -201,11 +203,12 @@ function assetLayer(layer,a) {
 }
 async function artwork(job) {
   const {brief,brand,template:t,used}=job;const [w,h]=t.canvas;const font=process.env.DESIGNER_FONT||brand.typography.family;const checks=[];
+  const fonts={default:font,heading:process.env.DESIGNER_FONT||brand.typography.heading||font,body:process.env.DESIGNER_FONT||brand.typography.body||font};
   const placed=new Map(used.map(a=>[a.id,a]));const parts=[`<g id="background"><rect width="${w}" height="${h}" fill="${colour(t.background,brand.tokens)}"/></g>`];
   for(const l of t.layers) {
     if(l.when_field&&!brief.content[l.when_field]?.trim()) continue;
     const [x,y,lw,lh]=l.box;const styles=`fill="${colour(l.fill||'none',brand.tokens)}" stroke="${colour(l.stroke||'none',brand.tokens)}" stroke-width="${l.stroke_width||1}" opacity="${l.opacity??1}"`;
-    if(l.type==='text')parts.push(await textLayer(l,l.field?brief.content[l.field]:l.text,font,brand.tokens,brief.locales[0],checks));
+    if(l.type==='text')parts.push(await textLayer(l,l.field?brief.content[l.field]:l.text,fonts[l.font_role||'default'],brand.tokens,brief.locales[0],checks));
     if(l.type==='asset'){const a=placed.get(l.asset||brief.assets?.[l.asset_field]);if(a)parts.push(assetLayer(l,a));}
     if(l.type==='rect')parts.push(`<g id="${l.id}"><rect x="${x}" y="${y}" width="${lw}" height="${lh}" rx="${l.radius||0}" ${styles}/></g>`);
     if(l.type==='ellipse')parts.push(`<g id="${l.id}"><ellipse cx="${x+lw/2}" cy="${y+lh/2}" rx="${lw/2}" ry="${lh/2}" ${styles}/></g>`);
@@ -214,7 +217,7 @@ async function artwork(job) {
   const r=t.review_label;const [rx,ry,rw,rh]=r.box;
   parts.push(`<g id="review-label-background"><rect x="${rx}" y="${ry}" width="${rw}" height="${rh}" fill="${colour(r.fill,brand.tokens)}"/></g>`);
   parts.push(await textLayer({id:'review-label',box:r.box,font_size:r.font_size,min_font_size:r.font_size,align:'center',valign:'middle',fill:r.colour},brief.content_status==='demo'?'DESIGN SAMPLE':'DRAFT / REVIEW',font,brand.tokens,brief.locales[0],checks));
-  return {svg:`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><title>${esc(brand.name+' / '+brief.template)}</title><desc>Draft artwork. Each configured layer remains separate; source raster images retain their original format.</desc>${parts.join('\n')}</svg>`,checks,font};
+  return {svg:`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><title>${esc(brand.name+' / '+brief.template)}</title><desc>Draft artwork. Each configured layer remains separate; source raster images retain their original format.</desc>${parts.join('\n')}</svg>`,checks,font,fonts};
 }
 async function writeExclusive(directory,files) {
   await fs.mkdir(path.dirname(directory),{recursive:true});const staging=await fs.mkdtemp(path.join(path.dirname(directory),'.draft-'));
@@ -227,11 +230,11 @@ async function writeExclusive(directory,files) {
   finally{await fs.rm(staging,{recursive:true,force:true});}
 }
 async function render(input,{root=ROOT,outputRoot=path.join(root,'jobs')}={}) {
-  const job=await prepare(input,root);const {svg,checks,font}=await artwork(job);const png=await sharp(Buffer.from(svg)).png().toBuffer();const meta=await sharp(png).metadata();
+  const job=await prepare(input,root);const {svg,checks,font,fonts}=await artwork(job);const png=await sharp(Buffer.from(svg)).png().toBuffer();const meta=await sharp(png).metadata();
   if(meta.width!==job.template.canvas[0]||meta.height!==job.template.canvas[1])throw new Error('Export dimensions mismatch');
   const b=job.brief;const content=Object.values(b.content).filter(Boolean);const caption=b.caption??content.join('\n\n');const alt=b.alt_text??`${job.brand.name} design draft. ${content.join('. ')}`;
   const assets=job.used.map(({bytes,vector,...a})=>a);
-  const manifest={schema_version:2,job_id:b.job_id,brand:b.brand,template:b.template,locales:b.locales,canvas:job.template.canvas,created_at:new Date().toISOString(),review_state:'pending',content_status:b.content_status,font,font_status:job.brand.typography.status,evidence:job.template.evidence,assets,fact_sources:b.fact_sources};
+  const manifest={schema_version:2,job_id:b.job_id,brand:b.brand,template:b.template,locales:b.locales,canvas:job.template.canvas,created_at:new Date().toISOString(),review_state:'pending',content_status:b.content_status,font,fonts,font_status:job.brand.typography.status,evidence:job.template.evidence,assets,fact_sources:b.fact_sources};
   const qa={mechanical_status:'passed',dimensions:[meta.width,meta.height],text_boxes:checks,asset_count:assets.length,manual_checks_pending:['Visual hierarchy and reference comparison','Font and script shaping','Readability at placement size','Claims, facts and translations','Asset ownership and approvals'],review_state:'pending'};
   const review=`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(b.job_id)}</title><style>body{margin:0;background:#f5f5f3;color:#202522;font:16px/1.5 system-ui}main{max-width:1100px;margin:40px auto;padding:0 24px}section{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,.7fr);gap:32px}img{width:100%}a{color:#2d5c40}pre{white-space:pre-wrap;background:white;padding:18px}@media(max-width:650px){section{display:block}}</style><main><p>DRAFT / REVIEW PENDING</p><h1>${esc(job.brand.name)} · ${esc(b.template)}</h1><section><a href="artwork.png"><img src="artwork.png" alt="${esc(alt)}"></a><div><p>Mechanical checks passed. Visual and factual review remains pending.</p><p><a href="artwork.svg">Editable SVG</a> · <a href="artwork.png">PNG</a> · <a href="manifest.json">Manifest</a> · <a href="qa.json">QA</a></p><h2>Caption draft</h2><pre>${esc(caption)}</pre><h2>Alt text draft</h2><p>${esc(alt)}</p><p>Font: ${esc(font)}</p></div></section></main></html>`;
   const destination=path.join(outputRoot,b.job_id);const j=v=>JSON.stringify(v,null,2)+'\n';
@@ -244,7 +247,9 @@ async function initBrand(id,name,{root=ROOT}={}) {
   const brief=await readJSON(path.join(seed,'example-brief.json'));brief.brand=id;brief.job_id=`${id.slice(0,65)}-sample-v01`;
   const guide=(await fs.readFile(path.join(seed,'design.md'),'utf8')).replaceAll('{{brand_name}}',name).replaceAll('{{brand_id}}',id);
   const destination=path.join(root,'brands',id);const j=v=>JSON.stringify(v,null,2)+'\n';
-  await writeExclusive(destination,{'brand.json':j(brand),'design.md':guide,'assets/asset-manifest.json':j({assets:[]}),'example-brief.json':j(brief)});
+  const workspaceFiles={};
+  for(const file of ['workspace-settings.json','workspace-design.md','image-style.txt']) workspaceFiles[file]=(await fs.readFile(path.join(seed,file),'utf8')).replaceAll('{{brand_name}}',name).replaceAll('{{brand_id}}',id);
+  await writeExclusive(destination,{'brand.json':j(brand),'design.md':guide,'assets/asset-manifest.json':j({assets:[]}),'example-brief.json':j(brief),...workspaceFiles});
   return {destination,brief:path.join(destination,'example-brief.json')};
 }
-module.exports={ROOT,esc,validateBrief,validateBrand,containedFile,loadBrand,prepare,artwork,render,initBrand};
+module.exports={ROOT,esc,validateBrief,validateBrand,containedFile,loadBrand,prepare,artwork,render,initBrand,writeExclusive};

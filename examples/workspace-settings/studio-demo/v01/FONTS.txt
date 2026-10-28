@@ -1,0 +1,2 @@
+Heading font: sans-serif
+Body font: sans-serif

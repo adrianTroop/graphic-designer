@@ -7,7 +7,9 @@
   "asset_manifest": "assets/asset-manifest.json",
   "typography": {
     "family": "sans-serif",
-    "status": "Generic system sans-serif for demonstration. Supply a licensed brand font for production."
+    "status": "Generic system sans-serif for demonstration. Supply a licensed brand font for production.",
+    "heading": "sans-serif",
+    "body": "sans-serif"
   },
   "tokens": {
     "ink": "#202822",
@@ -73,7 +75,8 @@
           "font_size": 28,
           "min_font_size": 22,
           "fill": "$ink",
-          "weight": 400
+          "weight": 400,
+          "font_role": "body"
         },
         {
           "id": "headline",
@@ -88,7 +91,8 @@
           "font_size": 104,
           "min_font_size": 62,
           "fill": "$ink",
-          "weight": 700
+          "weight": 700,
+          "font_role": "heading"
         },
         {
           "id": "body",
@@ -103,7 +107,8 @@
           "font_size": 36,
           "min_font_size": 26,
           "fill": "$ink",
-          "weight": 400
+          "weight": 400,
+          "font_role": "body"
         },
         {
           "id": "details",
@@ -118,7 +123,8 @@
           "font_size": 28,
           "min_font_size": 22,
           "fill": "$ink",
-          "weight": 400
+          "weight": 400,
+          "font_role": "body"
         },
         {
           "id": "cta-panel",
@@ -146,7 +152,8 @@
           "font_size": 32,
           "min_font_size": 24,
           "fill": "$ink",
-          "weight": 700
+          "weight": 700,
+          "font_role": "body"
         }
       ],
       "review_label": {
@@ -219,7 +226,8 @@
           "font_size": 26,
           "min_font_size": 20,
           "fill": "$ink",
-          "weight": 400
+          "weight": 400,
+          "font_role": "body"
         },
         {
           "id": "headline",
@@ -234,7 +242,8 @@
           "font_size": 92,
           "min_font_size": 56,
           "fill": "$ink",
-          "weight": 700
+          "weight": 700,
+          "font_role": "heading"
         },
         {
           "id": "body",
@@ -249,7 +258,8 @@
           "font_size": 32,
           "min_font_size": 24,
           "fill": "$ink",
-          "weight": 400
+          "weight": 400,
+          "font_role": "body"
         },
         {
           "id": "details",
@@ -264,7 +274,8 @@
           "font_size": 26,
           "min_font_size": 20,
           "fill": "$ink",
-          "weight": 400
+          "weight": 400,
+          "font_role": "body"
         },
         {
           "id": "cta-panel",
@@ -292,7 +303,8 @@
           "font_size": 30,
           "min_font_size": 22,
           "fill": "$ink",
-          "weight": 700
+          "weight": 700,
+          "font_role": "body"
         }
       ],
       "review_label": {
@@ -365,7 +377,8 @@
           "font_size": 28,
           "min_font_size": 22,
           "fill": "$paper",
-          "weight": 400
+          "weight": 400,
+          "font_role": "body"
         },
         {
           "id": "headline",
@@ -380,7 +393,8 @@
           "font_size": 98,
           "min_font_size": 60,
           "fill": "$paper",
-          "weight": 700
+          "weight": 700,
+          "font_role": "heading"
         },
         {
           "id": "body",
@@ -395,7 +409,8 @@
           "font_size": 36,
           "min_font_size": 26,
           "fill": "$paper",
-          "weight": 400
+          "weight": 400,
+          "font_role": "body"
         },
         {
           "id": "details",
@@ -410,7 +425,8 @@
           "font_size": 28,
           "min_font_size": 20,
           "fill": "$paper",
-          "weight": 400
+          "weight": 400,
+          "font_role": "body"
         },
         {
           "id": "cta-panel",
@@ -438,7 +454,8 @@
           "font_size": 30,
           "min_font_size": 22,
           "fill": "$ink",
-          "weight": 700
+          "weight": 700,
+          "font_role": "body"
         }
       ],
       "review_label": {
